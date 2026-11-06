@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Karnataka - Travel Website</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f4f7f2;
+    color: #333;
+}
+
+/* Navigation */
+header {
+    background: #075b3b;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h2 {
+    font-size: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: yellow;
+}
+
+/* Home */
+.hero {
+    height: 500px;
+    background: linear-gradient(#0006,#0006),
+    url("https://images.unsplash.com/photo-1606293926075-69a00dbfde81?w=1400");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #ffb703;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #fb8500;
+    color: white;
+}
+
+/* Sections */
+section {
+    padding: 50px 7%;
+}
+
+h2.title {
+    text-align: center;
+    color: #075b3b;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Filters */
+.filters {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+select, input {
+    padding: 12px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Cards */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px #ccc;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 18px;
+}
+
+.card h3 {
+    color: #075b3b;
+    margin-bottom: 10px;
+}
+
+.card p {
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.favorite {
+    background: #e63946;
+    color: white;
+}
+
+.favorite.saved {
+    background: #075b3b;
+}
+
+/* Random Generator */
+.random {
+    background: #075b3b;
+    color: white;
+    text-align: center;
+    padding: 35px;
+    border-radius: 10px;
+}
+
+/* Calculator */
+.calculator {
+    max-width: 500px;
+    margin: auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ccc;
+}
+
+.calculator input {
+    width: 100%;
+    margin: 10px 0 15px;
+}
+
+#result {
+    color: #075b3b;
+    margin-top: 20px;
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 15px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.gallery img:hover {
+    opacity: .8;
+}
+
+/* Footer */
+footer {
+    background: #06452f;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+@media(max-width:600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        display: inline-block;
+        font-size: 13px;
+        margin: 5px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME PAGE -->
+<header>
+    <h2>🌿 Explore Karnataka</h2>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#places">Places</a>
+        <a href="#favorites">Favorites</a>
+        <a href="#food">Food</a>
+        <a href="#budget">Budget</a>
+        <a href="#gallery">Gallery</a>
+    </nav>
+</header>
+
+<div class="hero" id="home">
+    <h1>Explore Karnataka</h1>
+    <p>Discover Nature, History, Culture and Adventure</p>
+    <a href="#places"><button>Explore Now</button></a>
+</div>
+
+<!-- TOURIST DESTINATIONS -->
+<section id="places">
+    <h2 class="title">Tourist Destinations</h2>
+    <p class="description">Discover beautiful destinations across Karnataka.</p>
+
+    <div class="filters">
+
+        <select id="category" onchange="filterPlaces()">
+            <option value="All">All Categories</option>
+            <option value="Historical">Historical Places</option>
+            <option value="Waterfall">Waterfalls</option>
+            <option value="Hill Station">Hill Stations</option>
+            <option value="Nature">Nature</option>
+        </select>
+
+        <select id="district" onchange="filterPlaces()">
+            <option value="All">All Districts</option>
+            <option value="Mysuru">Mysuru</option>
+            <option value="Vijayanagara">Vijayanagara</option>
+            <option value="Shivamogga">Shivamogga</option>
+            <option value="Kodagu">Kodagu</option>
+            <option value="Chikkamagaluru">Chikkamagaluru</option>
+            <option value="Uttara Kannada">Uttara Kannada</option>
+            <option value="Bagalkot">Bagalkot</option>
+            <option value="Vijayapura">Vijayapura</option>
+        </select>
+
+    </div>
+
+    <div class="container" id="placesList"></div>
+</section>
+
+<!-- RANDOM DESTINATION -->
+<section>
+    <div class="random">
+        <h2>🎲 Random Destination Generator</h2>
+        <p>Let us choose your next travel destination!</p>
+        <br>
+        <button onclick="randomPlace()">Generate Destination</button>
+        <h3 id="randomResult"></h3>
+    </div>
+</section>
+
+<!-- FAVORITES -->
+<section id="favorites">
+    <h2 class="title">❤️ Favorite Places</h2>
+    <p class="description">Your saved destinations.</p>
+    <div class="container" id="favoriteList"></div>
+</section>
+
+<!-- FAMOUS FOOD -->
+<section id="food">
+    <h2 class="title">Famous Karnataka Food</h2>
+
+    <div class="container">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600" alt="Dosa">
+            <div class="card-content">
+                <h3>Mysore Masala Dosa</h3>
+                <p>A popular crispy dosa with spicy chutney and potato filling.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=600" alt="South Indian food">
+            <div class="card-content">
+                <h3>Bisi Bele Bath</h3>
+                <p>A traditional rice dish prepared with lentils and vegetables.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600" alt="Idli">
+            <div class="card-content">
+                <h3>Idli Vada</h3>
+                <p>A traditional South Indian breakfast served with chutney.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600" alt="Indian food">
+            <div class="card-content">
+                <h3>Neer Dosa</h3>
+                <p>A soft and thin rice dosa popular in coastal Karnataka.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- BUDGET CALCULATOR -->
+<section id="budget">
+    <h2 class="title">💰 Travel Budget Calculator</h2>
+
+    <div class="calculator">
+
+        <label>Number of People</label>
+        <input type="number" id="people" min="1" placeholder="Enter people">
+
+        <label>Number of Days</label>
+        <input type="number" id="days" min="1" placeholder="Enter days">
+
+        <label>Travel Cost Per Person</label>
+        <input type="number" id="travel" min="0" placeholder="Enter travel cost">
+
+        <label>Hotel Cost Per Person Per Day</label>
+        <input type="number" id="hotel" min="0" placeholder="Enter hotel cost">
+
+        <label>Food Cost Per Person Per Day</label>
+        <input type="number" id="foodCost" min="0" placeholder="Enter food cost">
+
+        <button onclick="calculateBudget()">Calculate Budget</button>
+
+        <h3 id="result"></h3>
+
+    </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section id="gallery">
+    <h2 class="title">📸 Karnataka Photo Gallery</h2>
+
+    <div class="gallery">
+
+        <img src="https://images.unsplash.com/photo-1606293926075-69a00dbfde81?w=700" alt="Palace">
+
+        <img src="https://images.unsplash.com/photo-1590050752117-23a9d7fc5c06?w=700" alt="Historical architecture">
+
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700" alt="Nature">
+
+        <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=700" alt="Forest">
+
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700" alt="Mountains">
+
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700" alt="Beach">
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <h2>🌿 Explore Karnataka</h2>
+    <p>Discover the beauty of Karnataka</p>
+    <p>Designed using HTML, CSS and JavaScript</p>
+    <p>© 2026 Explore Karnataka. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+// DESTINATION INFORMATION
+
+const places = [
+{
+name:"Mysore Palace",
+district:"Mysuru",
+category:"Historical",
+description:"Famous royal palace known for beautiful architecture.",
+image:"https://images.unsplash.com/photo-1606293926075-69a00dbfde81?w=700"
+},
+{
+name:"Hampi",
+district:"Vijayanagara",
+category:"Historical",
+description:"UNESCO World Heritage Site with ancient monuments.",
+image:"https://images.unsplash.com/photo-1590050752117-23a9d7fc5c06?w=700"
+},
+{
+name:"Jog Falls",
+district:"Shivamogga",
+category:"Waterfall",
+description:"One of the most famous waterfalls in India.",
+image:"https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=700"
+},
+{
+name:"Coorg",
+district:"Kodagu",
+category:"Hill Station",
+description:"Beautiful hills and famous coffee plantations.",
+image:"https://images.unsplash.com/photo-1472396961693-142e6e269027?w=700"
+},
+{
+name:"Chikkamagaluru",
+district:"Chikkamagaluru",
+category:"Hill Station",
+description:"Beautiful mountains and green coffee estates.",
+image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700"
+},
+{
+name:"Gokarna",
+district:"Uttara Kannada",
+category:"Nature",
+description:"Beautiful beaches and peaceful coastal scenery.",
+image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700"
+},
+{
+name:"Badami",
+district:"Bagalkot",
+category:"Historical",
+description:"Ancient rock-cut cave temples and monuments.",
+image:"https://images.unsplash.com/photo-1548013146-72479768bada?w=700"
+},
+{
+name:"Dandeli",
+district:"Uttara Kannada",
+category:"Nature",
+description:"Known for forests and beautiful river landscapes.",
+image:"https://images.unsplash.com/photo-1511497584788-876760111969?w=700"
+},
+{
+name:"Gol Gumbaz",
+district:"Vijayapura",
+category:"Historical",
+description:"A famous historical monument in Vijayapura.",
+image:"https://images.unsplash.com/photo-1564507592333-c60657eea523?w=700"
+}
+];
+
+// FAVORITES
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+// DISPLAY PLACES
+
+function displayPlaces(list, elementId) {
+
+    let output = "";
+
+    if (list.length === 0) {
+        output = "<p>No places found.</p>";
+    }
+
+    list.forEach(place => {
+
+        let saved = favorites.includes(place.name);
+
+        output += `
+        <div class="card">
+            <img src="${place.image}" alt="${place.name}">
+            <div class="card-content">
+                <h3>${place.name}</h3>
+                <p><b>District:</b> ${place.district}</p>
+                <p><b>Category:</b> ${place.category}</p>
+                <p>${place.description}</p>
+
+                <button class="favorite ${saved ? 'saved' : ''}"
+                onclick="toggleFavorite('${place.name}')">
+                ${saved ? '❤️ Saved' : '♡ Add Favorite'}
+                </button>
+            </div>
+        </div>`;
+    });
+
+    document.getElementById(elementId).innerHTML = output;
+}
+
+// FILTER PLACES
+
+function filterPlaces() {
+
+    let category = document.getElementById("category").value;
+    let district = document.getElementById("district").value;
+
+    let filtered = places.filter(place => {
+
+        return (category === "All" || place.category === category)
+        &&
+        (district === "All" || place.district === district);
+
+    });
+
+    displayPlaces(filtered, "placesList");
+}
+
+// FAVORITE PLACES
+
+function toggleFavorite(name) {
+
+    if (favorites.includes(name)) {
+        favorites = favorites.filter(item => item !== name);
+    } else {
+        favorites.push(name);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    filterPlaces();
+    displayPlaces(
+        places.filter(place => favorites.includes(place.name)),
+        "favoriteList"
+    );
+}
+
+// RANDOM DESTINATION
+
+function randomPlace() {
+
+    let random = places[Math.floor(Math.random() * places.length)];
+
+    document.getElementById("randomResult").innerHTML =
+    "Your Destination: " + random.name + " - " + random.district;
+}
+
+// BUDGET CALCULATOR
+
+function calculateBudget() {
+
+    let people = Number(document.getElementById("people").value);
+    let days = Number(document.getElementById("days").value);
+    let travel = Number(document.getElementById("travel").value);
+    let hotel = Number(document.getElementById("hotel").value);
+    let food = Number(document.getElementById("foodCost").value);
+
+    if (
+        !Number.isInteger(people) || people < 1 ||
+        !Number.isInteger(days) || days < 1 ||
+        !Number.isFinite(travel) || travel < 0 ||
+        !Number.isFinite(hotel) || hotel < 0 ||
+        !Number.isFinite(food) || food < 0
+    ) {
+        document.getElementById("result").innerHTML =
+        "Please enter valid values in all fields.";
+        return;
+    }
+
+    let total = (people * travel) +
+                (people * days * hotel) +
+                (people * days * food);
+
+    document.getElementById("result").innerHTML =
+    "Total Estimated Budget: ₹" + total.toLocaleString("en-IN");
+}
+
+// INITIAL DISPLAY
+
+displayPlaces(places, "placesList");
+
+displayPlaces(
+    places.filter(place => favorites.includes(place.name)),
+    "favoriteList"
+);
+
+</script>
+
+</body>
+</html>
